@@ -51,7 +51,7 @@ var initPressure = () => {
     },
     change: function (force, event) {
       if (isPressureInit === false) {
-        console.log("Pressure.js initialized successfully");
+        // console.log("Pressure.js initialized successfully");
         isPressureInit = true;
       }
       // console.log(force);

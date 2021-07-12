@@ -8,7 +8,11 @@ import NavBar from "./components/react/NavBar";
 
 import * as p5Canvas from "./components/p5.js/p5canvas";
 
+import fire from "./config/firebase";
+
 function App() {
+  console.log(fire);
+
   return (
     <div className="App" style={{ height: "300" }}>
       <NavBar

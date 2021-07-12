@@ -99,6 +99,12 @@ function App() {
     drawCanvas.background("#2f4f4f");
   };
 
+  let resize_drawing = (p) => {
+    p.resizeCanvas(p.windowWidth, p.windowHeight - p.windowHeight / 3);
+    p.background("#2f4f4f");
+    drawCanvas.position(0, p.windowHeight / 3);
+  };
+
   let draw_drawing = (p) => {
     // Start Pressure.js if it hasn't started already
     if (isPressureInit === false) {
@@ -131,7 +137,7 @@ function App() {
       // console.log("X: ", penX)
       // console.log("Y: ", penY)
       // console.log("P: ", pressure)
-      // console.log("t: ", p.millis())
+      console.log("t: ", p.millis());
 
       // Calculate the distance between previous and current position
       d = p.dist(prevPenX, prevPenY, penX, penY);
@@ -172,6 +178,12 @@ function App() {
       p.windowHeight - p.windowHeight / 3
     );
     uiCanvas.id("uiCanvas");
+    uiCanvas.position(0, p.windowHeight / 3);
+  };
+
+  let resize_ui = (p) => {
+    p.resizeCanvas(p.windowWidth, p.windowHeight - p.windowHeight / 3);
+    p.background("#2f4f4f");
     uiCanvas.position(0, p.windowHeight / 3);
   };
 
@@ -237,13 +249,21 @@ function App() {
           before they got better.
         </Typography>
       </Grid>
-      <Sketch
-        setup={setup_drawing}
-        draw={draw_drawing}
-        className="p5_instance_01"
-        ref={ref}
-      />
-      <Sketch setup={setup_ui} draw={draw_ui} className="p5_instance_02" />
+      <div>
+        <Sketch
+          setup={setup_drawing}
+          draw={draw_drawing}
+          windowResized={resize_drawing}
+          className="p5_instance_01"
+          ref={ref}
+        />
+        <Sketch
+          setup={setup_ui}
+          draw={draw_ui}
+          windowResized={resize_ui}
+          className="p5_instance_02"
+        />
+      </div>
     </div>
   );
 }

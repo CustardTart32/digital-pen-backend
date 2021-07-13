@@ -26,7 +26,7 @@ export default function NavBar(props) {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Digital Pen
+          Digital Canvas
         </Typography>
         <Button color="inherit">Instructions</Button>
         <Button

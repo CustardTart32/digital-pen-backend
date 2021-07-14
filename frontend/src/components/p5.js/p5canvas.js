@@ -1,4 +1,7 @@
 import { OneEuroFilter } from "./oneEuroFilter";
+import fire from "../../config/firebase";
+
+var db = fire.firestore();
 
 var Pressure = require("pressure");
 
@@ -78,6 +81,9 @@ export var setup_drawing = (p, canvasParentRef) => {
   drawCanvas.id("drawingCanvas");
   drawCanvas.position(0, p.windowHeight / 3);
   drawCanvas.background("#2f4f4f");
+
+  // p.saveCanvas();
+  console.log(p);
 };
 
 export var resize_drawing = (p) => {
@@ -174,12 +180,6 @@ export var draw_ui = (p) => {
   }
 };
 
-// var resize_ui = (p) => {
-//   p.resizeCanvas(p.windowWidth, p.windowHeight - p.windowHeight / 3);
-//   p.background("#2f4f4f");
-//   uiCanvas.position(0, p.windowHeight / 3);
-// };
-
 function disableScroll() {
   document.body.addEventListener("touchmove", preventDefault, {
     passive: false,
@@ -191,7 +191,28 @@ function preventDefault(e) {
 }
 
 export var handleSubmit = () => {
-  console.log(tVals);
+  // let p5 = new window.p5();
+  // p5.saveCanvas(drawCanvas, "test", "png");
+
+  db.collection("ink")
+    .add({
+      x: xVals,
+      y: yVals,
+      t: tVals,
+      p: pVals,
+    })
+    .then((docRef) => {
+      console.log("Document written with ID: ", docRef.id);
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    });
+
+  xVals = [];
+  yVals = [];
+  tVals = [];
+  pVals = [];
+  drawCanvas.clear();
 };
 
 export var handleReset = () => {

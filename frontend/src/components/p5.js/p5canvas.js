@@ -2,6 +2,8 @@ import { OneEuroFilter } from "./oneEuroFilter";
 import fire from "../../config/firebase";
 
 var db = fire.firestore();
+var storage = fire.storage();
+var storageRef = storage.ref();
 
 var Pressure = require("pressure");
 
@@ -83,7 +85,7 @@ export var setup_drawing = (p, canvasParentRef) => {
   drawCanvas.background("#2f4f4f");
 
   // p.saveCanvas();
-  console.log(p);
+  // console.log(p);
 };
 
 export var resize_drawing = (p) => {
@@ -194,18 +196,36 @@ export var handleSubmit = () => {
   // let p5 = new window.p5();
   // p5.saveCanvas(drawCanvas, "test", "png");
 
-  db.collection("ink")
-    .add({
+  // Select canvas attribute from DOM and generate a BASE64 img representation
+  var canvas = document.getElementById("drawingCanvas");
+  var img = canvas.toDataURL("image/png");
+
+  console.log(img);
+
+  let db_ref = db.collection("ink").doc();
+  var imgRef = storageRef.child("inkImages/" + db_ref.id + ".png");
+
+  db_ref
+    .set({
       x: xVals,
       y: yVals,
       t: tVals,
       p: pVals,
     })
-    .then((docRef) => {
-      console.log("Document written with ID: ", docRef.id);
+    .then(() => {
+      console.log("Document written with successfully with id:", db_ref.id);
     })
     .catch((error) => {
       console.error("Error adding document: ", error);
+    });
+
+  imgRef
+    .putString(img, "data_url")
+    .then((snapshot) => {
+      console.log("Uploaded a data_url string!");
+    })
+    .catch((error) => {
+      console.log("Error uploading file:", error);
     });
 
   xVals = [];
@@ -213,6 +233,7 @@ export var handleSubmit = () => {
   tVals = [];
   pVals = [];
   drawCanvas.clear();
+  drawCanvas.background("#2f4f4f");
 };
 
 export var handleReset = () => {

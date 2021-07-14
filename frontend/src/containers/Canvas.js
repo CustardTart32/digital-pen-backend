@@ -53,7 +53,7 @@ export default function Canvas() {
           </Typography>
         </Grid>
       </Grid>
-      <div>
+      <div id="canvas">
         <Sketch
           setup={p5Canvas.setup_drawing}
           draw={p5Canvas.draw_drawing}

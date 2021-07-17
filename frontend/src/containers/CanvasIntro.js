@@ -2,6 +2,11 @@ import React from "react";
 import { Button, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { darkTheme } from "../components/react/darkTheme";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CancelIcon from "@material-ui/icons/Cancel";
+import exampleBadSentence from "../assets/example_bad_sentence.png";
+import exampleBadWord from "../assets/example_bad_word.png";
+import exampleGood from "../assets/example_good.png";
 
 export default function CanvasIntro() {
   const useStyles = makeStyles((theme) => ({
@@ -9,6 +14,14 @@ export default function CanvasIntro() {
       flexGrow: 1,
       height: "100vh",
       color: darkTheme.palette.text.primary,
+    },
+    good: {
+      color: darkTheme.palette.success.main,
+      marginRight: "2%",
+    },
+    bad: {
+      color: darkTheme.palette.error.main,
+      marginRight: "2%",
     },
   }));
 
@@ -31,7 +44,7 @@ export default function CanvasIntro() {
             {" "}
             This app collects digital handwriting from a digital stylus. Please
             ensure that you are using a digital stylus on a touch enabled device
-            such as an IPad.
+            such as an iPad.
           </li>
           <li>
             {" "}
@@ -46,7 +59,21 @@ export default function CanvasIntro() {
           </li>
         </ul>
       </Grid>
-      <Grid item>
+      <Grid container item direction="column" alignItems="center" spacing={2}>
+        <Grid container item alignItems="center" justifyContent="center">
+          <CheckCircleIcon className={classes.good} />
+          <img src={exampleGood} alt="" />
+        </Grid>
+        <Grid container item alignItems="center" justifyContent="center">
+          <CancelIcon className={classes.bad} />
+          <img src={exampleBadSentence} alt="" />
+        </Grid>
+        <Grid container item alignItems="center" justifyContent="center">
+          <CancelIcon className={classes.bad} />
+          <img src={exampleBadWord} alt="" />
+        </Grid>
+      </Grid>
+      <Grid item style={{ width: "100%" }}>
         <ul>
           <li>
             {" "}

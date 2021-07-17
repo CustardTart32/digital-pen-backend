@@ -203,28 +203,28 @@ export var handleSubmit = (setSubmitted, setError) => {
   let db_ref = db.collection("ink").doc();
   var imgRef = storageRef.child("inkImages/" + db_ref.id + ".png");
 
-  // db_ref
-  //   .set({
-  //     x: xVals,
-  //     y: yVals,
-  //     t: tVals,
-  //     p: pVals,
-  //   })
-  //   .then(() => {
-  //     console.log("Document written with successfully with id:", db_ref.id);
-  //     imgRef
-  //       .putString(img, "data_url")
-  //       .then(() => {
-  //         console.log("Uploaded a data_url string!");
-  //       })
-  //       .catch((error) => {
-  //         setError("Error uploading results");
-  //         setSubmitted(true);
-  //       });
-  //   })
-  //   .catch((error) => {
-  //     setError("Error uploading results");
-  //   });
+  db_ref
+    .set({
+      x: xVals,
+      y: yVals,
+      t: tVals,
+      p: pVals,
+    })
+    .then(() => {
+      console.log("Document written with successfully with id:", db_ref.id);
+      imgRef
+        .putString(img, "data_url")
+        .then(() => {
+          console.log("Uploaded a data_url string!");
+          setSubmitted(true);
+        })
+        .catch((error) => {
+          setError("Error uploading results");
+        });
+    })
+    .catch((error) => {
+      setError("Error uploading results");
+    });
 
   xVals = [];
   yVals = [];
@@ -232,7 +232,7 @@ export var handleSubmit = (setSubmitted, setError) => {
   pVals = [];
   drawCanvas.clear();
   drawCanvas.background("#2f4f4f");
-  setSubmitted(true);
+  // setSubmitted(true);
   // setError("Testing");
 };
 

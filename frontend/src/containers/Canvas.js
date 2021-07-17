@@ -3,23 +3,17 @@ import React from "react";
 import Sketch from "react-p5";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import { createTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { useState } from "react";
 
 import NavBar from "../components/react/NavBar";
 import SubmissionModal from "../components/react/SubmissionModal";
 import * as p5Canvas from "../components/p5.js/p5canvas";
+import { darkTheme } from "../components/react/darkTheme";
 
 export default function Canvas() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
-
-  const darkTheme = createTheme({
-    palette: {
-      type: "dark",
-    },
-  });
 
   return (
     <ThemeProvider theme={darkTheme}>

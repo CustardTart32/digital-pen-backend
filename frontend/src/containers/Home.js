@@ -2,16 +2,10 @@ import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { createTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
+import { darkTheme } from "../components/react/darkTheme";
 
 export default function Home() {
-  const darkTheme = createTheme({
-    palette: {
-      type: "dark",
-    },
-  });
-
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -42,7 +36,7 @@ export default function Home() {
           </Typography>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" href="/canvas">
+          <Button variant="contained" color="primary" href="/canvas/intro">
             Canvas Page
           </Button>
         </Grid>

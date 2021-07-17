@@ -192,41 +192,39 @@ function preventDefault(e) {
   e.preventDefault();
 }
 
-export var handleSubmit = () => {
+export var handleSubmit = (setSubmitted, setError) => {
+  // Create a local instance of the p5 module for use
   // let p5 = new window.p5();
   // p5.saveCanvas(drawCanvas, "test", "png");
 
   // Select canvas attribute from DOM and generate a BASE64 img representation
   var canvas = document.getElementById("drawingCanvas");
   var img = canvas.toDataURL("image/png");
-
-  console.log(img);
-
   let db_ref = db.collection("ink").doc();
   var imgRef = storageRef.child("inkImages/" + db_ref.id + ".png");
 
-  db_ref
-    .set({
-      x: xVals,
-      y: yVals,
-      t: tVals,
-      p: pVals,
-    })
-    .then(() => {
-      console.log("Document written with successfully with id:", db_ref.id);
-    })
-    .catch((error) => {
-      console.error("Error adding document: ", error);
-    });
-
-  imgRef
-    .putString(img, "data_url")
-    .then((snapshot) => {
-      console.log("Uploaded a data_url string!");
-    })
-    .catch((error) => {
-      console.log("Error uploading file:", error);
-    });
+  // db_ref
+  //   .set({
+  //     x: xVals,
+  //     y: yVals,
+  //     t: tVals,
+  //     p: pVals,
+  //   })
+  //   .then(() => {
+  //     console.log("Document written with successfully with id:", db_ref.id);
+  //     imgRef
+  //       .putString(img, "data_url")
+  //       .then(() => {
+  //         console.log("Uploaded a data_url string!");
+  //       })
+  //       .catch((error) => {
+  //         setError("Error uploading results");
+  //         setSubmitted(true);
+  //       });
+  //   })
+  //   .catch((error) => {
+  //     setError("Error uploading results");
+  //   });
 
   xVals = [];
   yVals = [];
@@ -234,6 +232,8 @@ export var handleSubmit = () => {
   pVals = [];
   drawCanvas.clear();
   drawCanvas.background("#2f4f4f");
+  setSubmitted(true);
+  // setError("Testing");
 };
 
 export var handleReset = () => {

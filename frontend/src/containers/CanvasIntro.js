@@ -23,6 +23,9 @@ export default function CanvasIntro() {
       color: darkTheme.palette.error.main,
       marginRight: "2%",
     },
+    dotPoint: {
+      width: "100%",
+    },
   }));
 
   const classes = useStyles(darkTheme);
@@ -38,7 +41,7 @@ export default function CanvasIntro() {
       <Grid item>
         <h1> Instructions </h1>
       </Grid>
-      <Grid item>
+      <Grid item className={classes.dotPoint}>
         <ul>
           <li>
             {" "}
@@ -73,7 +76,7 @@ export default function CanvasIntro() {
           <img src={exampleBadWord} alt="" />
         </Grid>
       </Grid>
-      <Grid item style={{ width: "100%" }}>
+      <Grid item className={classes.dotPoint}>
         <ul>
           <li>
             {" "}

@@ -16,7 +16,7 @@ export default function App() {
           <MarkIntro/>
         </Route> */}
         <Route path="/canvas">
-          <Canvas />
+          <Canvas timed={true} />
         </Route>
         <Route path="/mark">
           <Mark />

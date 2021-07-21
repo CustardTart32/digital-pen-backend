@@ -7,9 +7,19 @@ import numpy as np
 
 
 def read_ink(path):
-    # Get a list of words in the textblock along with its corresponding references
-    # words_arr: a list of words in the text block
-    # ref_arr: a list of refs which correspond the each word in words_arr
+    # Returns list of dictionaries containing words and their corresponding references
+    # The first layer of lists contains individual lines of text
+    # The second layer of lists contains individual words in each line of text
+    #
+    # words_arr:
+    # [[{word : "And", refs: ["t0", "t1"]} , {word: "He", refs: ["t2", "t3"]}], <- Line 1
+    #   [{...}, {...}], <- Line 2
+    #   [{...}, {...}], <- Line 3
+    # ]
+    #
+    #
+    # Also returns a list of line ids which correspond the the lines in the order that they occur
+    # lines: ["0", "1", "2", ...]
     tree = ET.parse(path)
     root = tree.getroot()
 
@@ -26,33 +36,48 @@ def read_ink(path):
             textBlockRoots.append(t)
 
     words_arr = []
-    ref_arr = []
+
+    # Array of line tags
+    lines = []
+    curr_line = 0
 
     for textBlock in textBlockRoots:
+        # For each textline
         for textLine in textBlock.findall("traceView"):
+            line_arr = []
+            # string = textLine[1].text
+
+            lines.append(str(curr_line))
+            curr_line += 1
+
+            # For each word in the textline
             for i in range(2, len(textLine)):
                 wordElement = textLine[i]
                 word = wordElement[1].text
 
+                word_dict = {}
+
                 if word is not None:
-                    words_arr.append(word)
+                    word_dict["word"] = word
+                    word_dict["refs"] = []
 
                     refs = wordElement.findall('traceView')
 
-                    ref_list = []
+                    for ref in refs:
+                        if 'traceDataRef' in ref.attrib:
+                            word_dict["refs"].append(
+                                ref.attrib['traceDataRef'])
 
-                for ref in refs:
-                    if 'traceDataRef' in ref.attrib:
-                        ref_list.append(ref.attrib['traceDataRef'])
+                    line_arr.append(word_dict)
 
-                ref_arr.append(ref_list)
+            words_arr.append(line_arr)
 
-    return words_arr, ref_arr
+    assert(len(words_arr) == len(lines))
+    return words_arr, lines
 
 
 def get_digital_ink(path):
     # Returns a dict that maps ref id -> digital ink time series
-
     tree = ET.parse(path)
     root = tree.getroot()
     traces = root.findall("trace")

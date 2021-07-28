@@ -28,6 +28,8 @@ var prevBrushSize = 1;
 var amt, x, y, s, d;
 var pressure = -2;
 
+var lineWidth = 50;
+
 // Arrays to store digital ink
 export var xVals = [];
 export var yVals = [];
@@ -39,6 +41,13 @@ export var drawCanvas, uiCanvas;
 var isPressureInit = false;
 var isDrawing = false;
 var isDrawingJustStarted = false;
+
+var draw_lines = (p) => {
+  p.stroke(255, 255, 255);
+  for (let i = lineWidth; i < p.windowHeight; i += lineWidth) {
+    p.line(0, i, p.windowWidth, i);
+  }
+};
 
 var initPressure = () => {
   // console.log("Attempting to initialize Pressure.js ");
@@ -84,14 +93,14 @@ export var setup_drawing = (p, canvasParentRef) => {
   drawCanvas.position(0, p.windowHeight / 3);
   drawCanvas.background("#2f4f4f");
 
-  // p.saveCanvas();
-  // console.log(p);
+  draw_lines(p);
 };
 
 export var resize_drawing = (p) => {
   p.resizeCanvas(p.windowWidth, p.windowHeight - p.windowHeight / 3);
   p.background("#2f4f4f");
   drawCanvas.position(0, p.windowHeight / 3);
+  draw_lines(p);
 };
 
 export var draw_drawing = (p) => {

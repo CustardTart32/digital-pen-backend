@@ -15,7 +15,10 @@ export default function App() {
         {/* <Route path = "intro/mark">
           <MarkIntro/>
         </Route> */}
-        <Route path="/canvas">
+        <Route path="/canvas/practice">
+          <Canvas timed={false} />
+        </Route>
+        <Route path="/canvas/test">
           <Canvas timed={true} />
         </Route>
         <Route path="/mark">

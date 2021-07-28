@@ -26,26 +26,31 @@ export default function NavBar(props) {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Digital Canvas
+          {props.timed ? "Digital Canvas" : "Practice Canvas"}
         </Typography>
-        <Button color="inherit">Instructions</Button>
+        {/* <Button color="inherit">Instructions</Button> */}
         <Button
           color="inherit"
           onClick={() => {
             props.handleReset();
           }}
         >
-          {" "}
-          Reset{" "}
+          Reset
         </Button>
-        <Button
-          color="inherit"
-          onClick={() => {
-            props.handleSubmit();
-          }}
-        >
-          Submit
-        </Button>
+        {props.timed ? (
+          <Button
+            color="inherit"
+            onClick={() => {
+              props.handleSubmit();
+            }}
+          >
+            Submit
+          </Button>
+        ) : (
+          <Button color="inherit" href="/canvas/test">
+            Continue
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );

@@ -4,17 +4,13 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { ThemeProvider } from "@material-ui/styles";
 import { useState, useEffect } from "react";
-import { Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Box from "@material-ui/core/Box";
 
 import NavBar from "../components/react/NavBar";
 import SubmissionModal from "../components/react/SubmissionModal";
 import * as p5Canvas from "../components/p5.js/p5canvas";
 import { darkTheme } from "../components/react/darkTheme";
+import Timer from "../components/react/Timer";
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -49,53 +45,6 @@ export default function Canvas(props) {
     };
   }, [started]);
 
-  function Timer() {
-    return (
-      <Grid
-        container
-        item
-        direction="row"
-        justifyContent="flex-end"
-        className={classes.startButton}
-      >
-        {started === false ? (
-          <Tooltip title="Add" aria-label="add">
-            <Fab color="secondary">
-              <AddIcon
-                onClick={() => {
-                  setStarted(true);
-                  setTime(0);
-                }}
-              />
-            </Fab>
-          </Tooltip>
-        ) : (
-          <Box position="relative" display="inline-flex">
-            <CircularProgress
-              variant="determinate"
-              value={time}
-              color="secondary"
-            />
-            <Box
-              top={0}
-              left={0}
-              bottom={0}
-              right={0}
-              position="absolute"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-            >
-              <Typography variant="caption" component="div">
-                {Math.round(time / (100 / 30))}
-              </Typography>
-            </Box>
-          </Box>
-        )}
-      </Grid>
-    );
-  }
-
   return (
     <ThemeProvider theme={darkTheme}>
       <SubmissionModal
@@ -108,6 +57,7 @@ export default function Canvas(props) {
           p5Canvas.handleSubmit(setSubmitted, setError);
         }}
         handleReset={p5Canvas.handleReset}
+        timed={props.timed}
       />
       <Grid
         container
@@ -122,7 +72,16 @@ export default function Canvas(props) {
             worse before they got better.
           </Typography>
         </Grid>
-        {props.timed === true ? <Timer /> : <></>}
+        {props.timed === true ? (
+          <Timer
+            started={started}
+            time={time}
+            setStarted={setStarted}
+            setTime={setTime}
+          />
+        ) : (
+          <></>
+        )}
       </Grid>
       <div id="canvas">
         <Sketch

@@ -90,7 +90,7 @@ export default function CanvasIntro() {
         </ul>
       </Grid>
       <Grid item>
-        <Button variant="contained" color="primary" href="/canvas">
+        <Button variant="contained" color="primary" href="/canvas/practice">
           Start Writing
         </Button>
       </Grid>

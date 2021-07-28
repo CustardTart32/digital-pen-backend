@@ -75,13 +75,7 @@ export default function SubmissionModal(props) {
           justifyContent="space-evenly"
           alignItems="center"
         >
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              props.setSubmitted(false);
-            }}
-          >
+          <Button variant="contained" color="primary" href="/canvas/test">
             Retry
           </Button>
           <Button variant="contained" color="secondary" href="/">
@@ -97,15 +91,14 @@ export default function SubmissionModal(props) {
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       className={classes.modal}
-      open={props.submitted}
-      // onClose={props}
+      open={props.submissionStatus === "submitted"}
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
         timeout: 500,
       }}
     >
-      <Fade in={props.submitted}>
+      <Fade in={props.submissionStatus === "submitted"}>
         <div className={classes.paper}>
           {props.error === "" ? <Success /> : <Failure />}
         </div>

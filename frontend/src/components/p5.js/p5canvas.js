@@ -28,7 +28,7 @@ var prevBrushSize = 1;
 var amt, x, y, s, d;
 var pressure = -2;
 
-var lineWidth = 50;
+var lineWidth = 70;
 
 // Arrays to store digital ink
 export var xVals = [];
@@ -201,10 +201,8 @@ function preventDefault(e) {
   e.preventDefault();
 }
 
-export var handleSubmit = (setSubmitted, setError) => {
-  // Create a local instance of the p5 module for use
-  // let p5 = new window.p5();
-  // p5.saveCanvas(drawCanvas, "test", "png");
+export var handleSubmit = (setSubmissionStatus, setError) => {
+  setSubmissionStatus("submitting");
 
   // Select canvas attribute from DOM and generate a BASE64 img representation
   var canvas = document.getElementById("drawingCanvas");
@@ -225,13 +223,15 @@ export var handleSubmit = (setSubmitted, setError) => {
         .putString(img, "data_url")
         .then(() => {
           console.log("Uploaded a data_url string!");
-          setSubmitted(true);
+          setSubmissionStatus("submitted");
         })
         .catch((error) => {
+          setSubmissionStatus("submitted");
           setError("Error uploading results");
         });
     })
     .catch((error) => {
+      setSubmissionStatus("submitted");
       setError("Error uploading results");
     });
 
@@ -239,10 +239,6 @@ export var handleSubmit = (setSubmitted, setError) => {
   yVals = [];
   tVals = [];
   pVals = [];
-  drawCanvas.clear();
-  drawCanvas.background("#2f4f4f");
-  // setSubmitted(true);
-  // setError("Testing");
 };
 
 export var handleReset = () => {

@@ -5,6 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import { ThemeProvider } from "@material-ui/styles";
 import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
 
 import NavBar from "../components/react/NavBar";
 import SubmissionModal from "../components/react/SubmissionModal";
@@ -25,10 +27,14 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     paddingRight: "2%",
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
 }));
 
 export default function Canvas(props) {
-  const [submitted, setSubmitted] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState("none");
   const [error, setError] = useState("");
   const [time, setTime] = useState(0);
   const [started, setStarted] = useState(false);
@@ -47,14 +53,20 @@ export default function Canvas(props) {
 
   return (
     <ThemeProvider theme={darkTheme}>
+      <Backdrop
+        className={classes.backdrop}
+        open={submissionStatus === "submitting"}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <SubmissionModal
-        submitted={submitted}
+        submissionStatus={submissionStatus}
         error={error}
-        setSubmitted={setSubmitted}
+        setSubmissionStatus={setSubmissionStatus}
       />
       <NavBar
         handleSubmit={() => {
-          p5Canvas.handleSubmit(setSubmitted, setError);
+          p5Canvas.handleSubmit(setSubmissionStatus, setError);
         }}
         handleReset={p5Canvas.handleReset}
         timed={props.timed}

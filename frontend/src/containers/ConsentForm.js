@@ -9,8 +9,11 @@ import {
 import { darkTheme } from "../components/react/darkTheme";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { useHistory } from "react-router-dom";
 import Link from "@material-ui/core/Link";
+
+import { useHistory } from "react-router-dom";
+
+import fire from "../config/firebase";
 
 const test = createTheme({
   palette: {
@@ -43,13 +46,30 @@ export default function ConsentForm() {
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
 
-  let history = useHistory();
+  var history = useHistory();
+  var db = fire.firestore();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ name: name, address: address, email: email });
 
     if (checked === true) {
+      let user = await fire
+        .auth()
+        .signInAnonymously()
+        .catch((e) => alert("Could not generate a unique user id"));
+
+      await db
+        .collection("users")
+        .doc(user.uid)
+        .set({
+          name: name,
+          address: address,
+          email: email,
+        })
+        .catch(() => {
+          alert("Error uploading to the database");
+        });
+
       history.push("/canvas/intro");
     } else {
       alert("You must agree to all terms by marking the checkbox.");

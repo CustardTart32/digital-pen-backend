@@ -4,6 +4,7 @@ import Canvas from "./containers/Canvas";
 import Home from "./containers/Home";
 import Mark from "./containers/Mark";
 import CanvasIntro from "./containers/CanvasIntro";
+import ConsentForm from "./containers/ConsentForm";
 
 export default function App() {
   return (
@@ -24,7 +25,10 @@ export default function App() {
         <Route path="/mark">
           <Mark />
         </Route>
-        <Route path="/">
+        <Route path="/form">
+          <ConsentForm />
+        </Route>
+        <Route path="/" exact>
           <Home />
         </Route>
       </Switch>

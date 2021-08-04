@@ -36,7 +36,7 @@ export default function Home() {
           </Typography>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" href="/canvas/intro">
+          <Button variant="contained" color="primary" href="/consent">
             Canvas Page
           </Button>
         </Grid>

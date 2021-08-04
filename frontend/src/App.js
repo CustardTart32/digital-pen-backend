@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Canvas from "./containers/Canvas";
+import CanvasPractice from "./containers/CanvasPractice";
+import CanvasTimed from "./containers/CanvasTimed";
 import Home from "./containers/Home";
 import Mark from "./containers/Mark";
 import CanvasIntro from "./containers/CanvasIntro";
@@ -17,15 +18,15 @@ export default function App() {
           <MarkIntro/>
         </Route> */}
         <Route path="/canvas/practice">
-          <Canvas timed={false} />
+          <CanvasPractice />
         </Route>
         <Route path="/canvas/test">
-          <Canvas timed={true} />
+          <CanvasTimed />
         </Route>
         <Route path="/mark">
           <Mark />
         </Route>
-        <Route path="/form">
+        <Route path="/consent">
           <ConsentForm />
         </Route>
         <Route path="/" exact>

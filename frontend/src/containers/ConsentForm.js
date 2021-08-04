@@ -27,15 +27,15 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
     color: darkTheme.palette.text.primary,
   },
-  dotPoint: {
-    width: "100%",
-  },
   title: {
     marginLeft: "2%",
-    width: "100%",
+    width: "95%",
   },
   form: {
     width: "100%",
+  },
+  error: {
+    color: theme.palette.error.main,
   },
 }));
 
@@ -43,8 +43,7 @@ export default function ConsentForm() {
   const classes = useStyles();
   const [checked, setChecked] = useState(false);
   const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   var history = useHistory();
   var db = fire.firestore();
@@ -63,8 +62,6 @@ export default function ConsentForm() {
         .doc(user.uid)
         .set({
           name: name,
-          address: address,
-          email: email,
         })
         .catch(() => {
           alert("Error uploading to the database");
@@ -72,7 +69,7 @@ export default function ConsentForm() {
 
       history.push("/canvas/intro");
     } else {
-      alert("You must agree to all terms by marking the checkbox.");
+      setSubmitted(true);
     }
   };
 
@@ -159,6 +156,15 @@ export default function ConsentForm() {
                   }
                 />
               </Grid>
+              {submitted === true && checked === false ? (
+                <Grid>
+                  <Typography variant="body2" className={classes.error}>
+                    Please accept all terms and conditions in the form.
+                  </Typography>
+                </Grid>
+              ) : (
+                <></>
+              )}
               <Grid item className={classes.form}>
                 <TextField
                   label="Name"
@@ -166,28 +172,6 @@ export default function ConsentForm() {
                   required
                   onChange={(e) => {
                     setName(e.target.value);
-                  }}
-                  className={classes.form}
-                />
-              </Grid>
-              <Grid item className={classes.form}>
-                <TextField
-                  label="Address"
-                  required
-                  value={address}
-                  onChange={(e) => {
-                    setAddress(e.target.value);
-                  }}
-                  className={classes.form}
-                />
-              </Grid>
-              <Grid item className={classes.form}>
-                <TextField
-                  label="Email"
-                  required
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
                   }}
                   className={classes.form}
                 />

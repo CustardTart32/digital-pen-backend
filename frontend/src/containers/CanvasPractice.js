@@ -3,7 +3,7 @@ import Sketch from "react-p5";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { ThemeProvider } from "@material-ui/styles";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -12,7 +12,6 @@ import NavBar from "../components/react/NavBar";
 import SubmissionModal from "../components/react/SubmissionModal";
 import * as p5Canvas from "../components/p5.js/p5canvas";
 import { darkTheme } from "../components/react/darkTheme";
-import Timer from "../components/react/Timer";
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -33,23 +32,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Canvas(props) {
+export default function CanvasPractice() {
   const [submissionStatus, setSubmissionStatus] = useState("none");
   const [error, setError] = useState("");
-  const [time, setTime] = useState(0);
-  const [started, setStarted] = useState(false);
 
   const classes = useStyles();
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTime((time) => (time >= 100 ? 100 : time + 1));
-    }, 300);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, [started]);
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -69,7 +56,7 @@ export default function Canvas(props) {
           p5Canvas.handleSubmit(setSubmissionStatus, setError);
         }}
         handleReset={p5Canvas.handleReset}
-        timed={props.timed}
+        timed={false}
       />
       <Grid
         container
@@ -84,16 +71,6 @@ export default function Canvas(props) {
             worse before they got better.
           </Typography>
         </Grid>
-        {props.timed === true ? (
-          <Timer
-            started={started}
-            time={time}
-            setStarted={setStarted}
-            setTime={setTime}
-          />
-        ) : (
-          <></>
-        )}
       </Grid>
       <div id="canvas">
         <Sketch

@@ -1,4 +1,3 @@
-// TODO: Serious Refactoring needed
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -28,7 +27,6 @@ export default function NavBar(props) {
         <Typography variant="h6" className={classes.title}>
           {props.timed ? "Digital Canvas" : "Practice Canvas"}
         </Typography>
-        {/* <Button color="inherit">Instructions</Button> */}
         <Button
           color="inherit"
           onClick={() => {

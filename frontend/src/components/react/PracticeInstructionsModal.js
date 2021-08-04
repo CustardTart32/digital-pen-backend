@@ -5,8 +5,14 @@ import Grid from "@material-ui/core/Grid";
 import Fade from "@material-ui/core/Fade";
 import { useState } from "react";
 
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CancelIcon from "@material-ui/icons/Cancel";
+import exampleBadSentence from "../../assets/slanted_cropped.png";
+import exampleBadWord from "../../assets/truncated_cropped.jpg";
+import exampleGood from "../../assets/correct_cropped.png";
+
 import { darkTheme } from "./darkTheme";
-import { Button, Typography } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -20,6 +26,14 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: darkTheme.shadows[5],
     padding: darkTheme.spacing(2, 4, 3),
     maxWidth: "70%",
+  },
+  good: {
+    color: darkTheme.palette.success.main,
+    marginRight: "2%",
+  },
+  bad: {
+    color: darkTheme.palette.error.main,
+    marginRight: "2%",
   },
 }));
 
@@ -42,14 +56,36 @@ export default function PracticeInstructionsModal(props) {
       );
     } else if (step === 1) {
       return (
-        <Grid item>
-          <ul>
-            <li>
-              Please ensure that your handwriting written in staight lines and
-              that any words are not truncated.
-            </li>
-          </ul>
-        </Grid>
+        <>
+          <Grid item>
+            <ul>
+              <li>
+                Please ensure that your handwriting written in staight lines and
+                that any words are not truncated.
+              </li>
+            </ul>
+          </Grid>
+          <Grid
+            container
+            item
+            direction="column"
+            alignItems="center"
+            spacing={2}
+          >
+            <Grid container item alignItems="center" justifyContent="center">
+              <CheckCircleIcon className={classes.good} />
+              <img src={exampleGood} alt="" />
+            </Grid>
+            <Grid container item alignItems="center" justifyContent="center">
+              <CancelIcon className={classes.bad} />
+              <img src={exampleBadSentence} alt="" />
+            </Grid>
+            <Grid container item alignItems="center" justifyContent="center">
+              <CancelIcon className={classes.bad} />
+              <img src={exampleBadWord} alt="" />
+            </Grid>
+          </Grid>
+        </>
       );
     } else if (step === 2) {
       return (
@@ -112,17 +148,31 @@ export default function PracticeInstructionsModal(props) {
       );
     } else if (step === 2) {
       return (
-        <Grid item>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              props.handleClose();
-            }}
-          >
-            Start Writing
-          </Button>
-        </Grid>
+        <>
+          <Grid item>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => {
+                setStep(step - 1);
+              }}
+            >
+              Previous
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                props.handleClose();
+                setStep(0);
+              }}
+            >
+              Start Writing
+            </Button>
+          </Grid>
+        </>
       );
     }
   };
@@ -133,7 +183,10 @@ export default function PracticeInstructionsModal(props) {
       aria-describedby="transition-modal-description"
       className={classes.modal}
       open={props.open}
-      onClose={props.handleClose}
+      onClose={() => {
+        props.handleClose();
+        setStep(0);
+      }}
     >
       <Fade in={props.open}>
         <div className={classes.paper}>
@@ -142,9 +195,10 @@ export default function PracticeInstructionsModal(props) {
             direction="column"
             justifyContent="center"
             alignItems="center"
+            spacing={1}
           >
             <Grid item>
-              <h2> Practice </h2>
+              <h2> Practice Instructions </h2>
             </Grid>
             {renderInstructions()}
             <Grid

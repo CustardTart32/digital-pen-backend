@@ -36,7 +36,7 @@ export default function CanvasPractice() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <NavBarPractice />
+      <NavBarPractice setTutOpen={setTutOpen} />
       <PracticeInstructionsModal
         open={tutOpen}
         handleClose={() => {

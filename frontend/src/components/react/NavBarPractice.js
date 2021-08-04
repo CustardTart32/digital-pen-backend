@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavBarPractice() {
+export default function NavBarPractice(props) {
   const classes = useStyles();
 
   return (
@@ -31,6 +31,14 @@ export default function NavBarPractice() {
             Digital Pen
           </Link>
         </Typography>
+        <Button
+          color="inherit"
+          onClick={() => {
+            props.setTutOpen(true);
+          }}
+        >
+          Instructions
+        </Button>
         <Button color="inherit" href="/canvas/practice">
           Reset
         </Button>

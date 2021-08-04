@@ -52,14 +52,16 @@ export default function ConsentForm() {
     e.preventDefault();
 
     if (checked === true) {
-      let user = await fire
+      let ret = await fire
         .auth()
         .signInAnonymously()
         .catch((e) => alert("Could not generate a unique user id"));
 
+      console.log(ret.user.uid);
+
       await db
         .collection("users")
-        .doc(user.uid)
+        .doc(ret.user.uid)
         .set({
           name: name,
         })

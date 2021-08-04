@@ -8,17 +8,19 @@ import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 
-import NavBar from "../components/react/NavBar";
+import NavBarTimed from "../components/react/NavBarTimed";
 import SubmissionModal from "../components/react/SubmissionModal";
 import * as p5Canvas from "../components/p5.js/p5canvas";
 import { darkTheme } from "../components/react/darkTheme";
 import Timer from "../components/react/Timer";
 
+import fire from "../config/firebase";
+
 const useStyles = makeStyles((theme) => ({
   fab: {
     margin: theme.spacing(2),
   },
-  // TODO: Hardcoded in
+  // Hardcoded in
   container: {
     color: darkTheme.palette.text.primary,
     height: window.innerHeight / 3 - 64,
@@ -33,13 +35,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CanvasTimed(props) {
+export default function CanvasTimed() {
   const [submissionStatus, setSubmissionStatus] = useState("none");
   const [error, setError] = useState("");
   const [time, setTime] = useState(0);
   const [started, setStarted] = useState(false);
+  const [uid, setUid] = useState(null);
 
   const classes = useStyles();
+
+  fire.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      setUid(user.uid);
+    } else {
+      // User is signed out
+      setUid(null);
+    }
+  });
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -64,12 +78,11 @@ export default function CanvasTimed(props) {
         error={error}
         setSubmissionStatus={setSubmissionStatus}
       />
-      <NavBar
+      <NavBarTimed
         handleSubmit={() => {
-          p5Canvas.handleSubmit(setSubmissionStatus, setError);
+          p5Canvas.handleSubmit(uid, setSubmissionStatus, setError);
         }}
-        handleReset={p5Canvas.handleReset}
-        timed={true}
+        user={uid}
       />
       <Grid
         container

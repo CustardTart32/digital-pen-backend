@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 
-import NavBar from "../components/react/NavBar";
+import NavBarPractice from "../components/react/NavBarPractice";
 import SubmissionModal from "../components/react/SubmissionModal";
 import * as p5Canvas from "../components/p5.js/p5canvas";
 import { darkTheme } from "../components/react/darkTheme";
@@ -51,12 +51,10 @@ export default function CanvasPractice() {
         error={error}
         setSubmissionStatus={setSubmissionStatus}
       />
-      <NavBar
+      <NavBarPractice
         handleSubmit={() => {
           p5Canvas.handleSubmit(setSubmissionStatus, setError);
         }}
-        handleReset={p5Canvas.handleReset}
-        timed={false}
       />
       <Grid
         container

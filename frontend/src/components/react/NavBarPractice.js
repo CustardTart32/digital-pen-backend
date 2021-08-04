@@ -18,37 +18,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavBar(props) {
+export default function NavBarPractice(props) {
   const classes = useStyles();
 
   return (
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          {props.timed ? "Digital Canvas" : "Practice Canvas"}
+          Practice Canvas
         </Typography>
-        <Button
-          color="inherit"
-          onClick={() => {
-            props.handleReset();
-          }}
-        >
+        <Button color="inherit" href="/canvas/practice">
           Reset
         </Button>
-        {props.timed ? (
-          <Button
-            color="inherit"
-            onClick={() => {
-              props.handleSubmit();
-            }}
-          >
-            Submit
-          </Button>
-        ) : (
-          <Button color="inherit" href="/canvas/test">
-            Continue
-          </Button>
-        )}
+        <Button color="inherit" href="/canvas/test">
+          Continue
+        </Button>
       </Toolbar>
     </AppBar>
   );

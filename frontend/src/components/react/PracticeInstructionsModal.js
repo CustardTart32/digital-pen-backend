@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Grid from "@material-ui/core/Grid";
 import Fade from "@material-ui/core/Fade";
@@ -60,9 +60,68 @@ export default function PracticeInstructionsModal(props) {
               corner to clear the canvas or refresh this page.
             </li>
             <li>
-              When done, tap the submit button to upload your handwriting.
+              When done, tap the continue button continue to the next stage.
             </li>
           </ul>
+        </Grid>
+      );
+    }
+  };
+
+  const renderButtons = () => {
+    if (step === 0) {
+      return (
+        <Grid item>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              setStep(step + 1);
+            }}
+          >
+            Next
+          </Button>
+        </Grid>
+      );
+    } else if (step === 1) {
+      return (
+        <>
+          <Grid item>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => {
+                setStep(step - 1);
+              }}
+            >
+              Previous
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                setStep(step + 1);
+              }}
+            >
+              Next
+            </Button>
+          </Grid>{" "}
+        </>
+      );
+    } else if (step === 2) {
+      return (
+        <Grid item>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              props.handleClose();
+            }}
+          >
+            Start Writing
+          </Button>
         </Grid>
       );
     }
@@ -94,28 +153,7 @@ export default function PracticeInstructionsModal(props) {
               alignItems="center"
               justifyContent="space-evenly"
             >
-              <Grid item>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => {
-                    setStep(step - 1);
-                  }}
-                >
-                  Previous
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
-                    setStep(step + 1);
-                  }}
-                >
-                  Next
-                </Button>
-              </Grid>
+              {renderButtons()}
             </Grid>
           </Grid>
         </div>

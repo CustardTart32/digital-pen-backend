@@ -1,10 +1,7 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import { Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@material-ui/core/Box";
 
@@ -26,18 +23,7 @@ export default function Timer(props) {
       justifyContent="flex-end"
       className={classes.startButton}
     >
-      {props.started === false ? (
-        <Tooltip title="Add" aria-label="add">
-          <Fab color="secondary">
-            <AddIcon
-              onClick={() => {
-                props.setStarted(true);
-                props.setTime(0);
-              }}
-            />
-          </Fab>
-        </Tooltip>
-      ) : (
+      {props.tutOpen === false ? (
         <Box position="relative" display="inline-flex">
           <CircularProgress
             variant="determinate"
@@ -59,6 +45,8 @@ export default function Timer(props) {
             </Typography>
           </Box>
         </Box>
+      ) : (
+        <></>
       )}
     </Grid>
   );

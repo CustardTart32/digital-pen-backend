@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Sketch from "react-p5";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -13,6 +13,7 @@ import SubmissionModal from "../components/react/SubmissionModal";
 import * as p5Canvas from "../components/p5.js/p5canvas";
 import { darkTheme } from "../components/react/darkTheme";
 import Timer from "../components/react/Timer";
+import TimedInstructionsModal from "../components/react/TimedInstructionsModal";
 
 import fire from "../config/firebase";
 
@@ -39,10 +40,14 @@ export default function CanvasTimed() {
   const [submissionStatus, setSubmissionStatus] = useState("none");
   const [error, setError] = useState("");
   const [time, setTime] = useState(0);
-  const [started, setStarted] = useState(false);
   const [uid, setUid] = useState(null);
+  const [tutOpen, setTutOpen] = useState(true);
 
   const classes = useStyles();
+
+  const handleSubmit = useCallback(() => {
+    p5Canvas.handleSubmit(uid, setSubmissionStatus, setError);
+  }, [uid]);
 
   fire.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -63,7 +68,13 @@ export default function CanvasTimed() {
     return () => {
       clearInterval(timer);
     };
-  }, [started]);
+  }, [tutOpen]);
+
+  useEffect(() => {
+    if (time === 100 && tutOpen === false) {
+      handleSubmit();
+    }
+  }, [time, tutOpen, handleSubmit]);
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -78,9 +89,16 @@ export default function CanvasTimed() {
         error={error}
         setSubmissionStatus={setSubmissionStatus}
       />
+      <TimedInstructionsModal
+        open={tutOpen}
+        handleClose={() => {
+          setTutOpen(false);
+          setTime(0);
+        }}
+      />
       <NavBarTimed
         handleSubmit={() => {
-          p5Canvas.handleSubmit(uid, setSubmissionStatus, setError);
+          handleSubmit();
         }}
         user={uid}
       />
@@ -97,12 +115,7 @@ export default function CanvasTimed() {
             worse before they got better.
           </Typography>
         </Grid>
-        <Timer
-          started={started}
-          time={time}
-          setStarted={setStarted}
-          setTime={setTime}
-        />
+        <Timer tutOpen={tutOpen} time={time} />
       </Grid>
       <div id="canvas">
         <Sketch

@@ -23,7 +23,7 @@ export default function Home() {
         direction="column"
         justifyContent="center"
         alignItems="center"
-        spacing="3"
+        spacing={3}
         className={classes.root}
       >
         <Grid item>

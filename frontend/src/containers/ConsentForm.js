@@ -10,6 +10,7 @@ import { darkTheme } from "../components/react/darkTheme";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Link from "@material-ui/core/Link";
+import { Backdrop, CircularProgress } from "@material-ui/core";
 
 import { useHistory } from "react-router-dom";
 
@@ -37,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
   error: {
     color: theme.palette.error.main,
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
 }));
 
 export default function ConsentForm() {
@@ -44,6 +49,7 @@ export default function ConsentForm() {
   const [checked, setChecked] = useState(false);
   const [name, setName] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [progress, setProgress] = useState("none");
 
   var history = useHistory();
   var db = fire.firestore();
@@ -52,6 +58,8 @@ export default function ConsentForm() {
     e.preventDefault();
 
     if (checked === true) {
+      setProgress("submitting");
+
       let ret = await fire
         .auth()
         .signInAnonymously()
@@ -59,17 +67,19 @@ export default function ConsentForm() {
 
       console.log(ret.user.uid);
 
-      await db
-        .collection("users")
-        .doc(ret.user.uid)
-        .set({
+      try {
+        await db.collection("users").doc(ret.user.uid).set({
           name: name,
-        })
-        .catch(() => {
-          alert("Error uploading to the database");
         });
 
-      history.push("/canvas/intro");
+        await db.collection("user_docs").doc(ret.user.uid).set({
+          docs: [],
+        });
+
+        history.push("/canvas/intro");
+      } catch (e) {
+        alert("Error creating anonymous user id");
+      }
     } else {
       setSubmitted(true);
     }
@@ -77,6 +87,9 @@ export default function ConsentForm() {
 
   return (
     <ThemeProvider theme={test}>
+      <Backdrop className={classes.backdrop} open={progress === "submitting"}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Grid
         container
         direction="column"
@@ -100,8 +113,14 @@ export default function ConsentForm() {
             </li>
             <li>
               <Typography>
-                I have read the Participant Information Sheet, or it has been
-                provided to me in a language that I understand.
+                I have read the{" "}
+                <Link
+                  href="https://docs.google.com/document/d/1TTzXbMMUc5e_O79Duv9vBxhsqAKb_Ne-/edit?usp=sharing&ouid=103309654343154438571&rtpof=true&sd=true"
+                  target="_blank"
+                >
+                  Participant Information Sheet
+                </Link>{" "}
+                , or it has been provided to me in a language that I understand.
               </Typography>
             </li>
             <li>
@@ -152,7 +171,13 @@ export default function ConsentForm() {
                       <Typography>
                         I understand that I can download a copy of this consent
                         form using
-                        <Link href="http://www.google.com"> this link. </Link>
+                        <Link
+                          href="https://docs.google.com/document/d/1TTzXbMMUc5e_O79Duv9vBxhsqAKb_Ne-/edit?usp=sharing&ouid=103309654343154438571&rtpof=true&sd=true"
+                          target="_blank"
+                        >
+                          {" "}
+                          this link.{" "}
+                        </Link>
                       </Typography>
                     </>
                   }

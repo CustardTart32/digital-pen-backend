@@ -70,11 +70,12 @@ export default function CanvasTimed() {
     };
   }, [tutOpen]);
 
+  // When time == 100, time does not increase change any more so handlesubmit is only invoked once
   useEffect(() => {
-    if (time === 100 && tutOpen === false) {
+    if (time === 100 && tutOpen === false && submissionStatus === "none") {
       handleSubmit();
     }
-  }, [time, tutOpen, handleSubmit]);
+  }, [time, tutOpen, submissionStatus, handleSubmit]);
 
   return (
     <ThemeProvider theme={darkTheme}>

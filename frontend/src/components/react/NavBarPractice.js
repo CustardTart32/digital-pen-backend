@@ -43,7 +43,7 @@ export default function NavBarPractice(props) {
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
           <Link href="/" style={{ color: "inherit" }}>
-            Digital Pen
+            Practice Assessment
           </Link>
         </Typography>
         <Typography>{uid}</Typography>

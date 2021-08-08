@@ -25,7 +25,7 @@ export default function NavBarTimed(props) {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Digital Canvas
+          Timed Assessment
         </Typography>
         <Typography> {props.user} </Typography>
         <Button color="inherit" href="/canvas/test">

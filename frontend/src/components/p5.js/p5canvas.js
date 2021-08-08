@@ -215,8 +215,9 @@ export var handleSubmit = async (user, setSubmissionStatus, setError) => {
     console.log("Uploaded digital ink");
     await imgRef.putString(img, "data_url");
     console.log("Uploaded a data_url string!");
+
     // Link db_ref to user
-    let user_ref = db.collection("users").doc(user);
+    let user_ref = db.collection("user_docs").doc(user);
     await user_ref.update({
       docs: firebase.firestore.FieldValue.arrayUnion(db_ref.id),
     });

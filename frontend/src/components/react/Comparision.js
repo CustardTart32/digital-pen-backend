@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -11,7 +12,13 @@ import { Carousel } from "react-responsive-carousel";
 import submission_a from "../../assets/submissions/ALxdH3dmBJ6JoauXjCle.png";
 import submission_b from "../../assets/submissions/cw87bnlvENSOp6pzaVzr.png";
 
-export default function Comparison(props) {
+export default function Comparison() {
+  const [value, setValue] = useState("Submission A");
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
   return (
     <>
       <Grid item>
@@ -24,8 +31,8 @@ export default function Comparison(props) {
           <RadioGroup
             aria-label="text"
             name="Text"
-            value={props.value}
-            onChange={props.handleChange}
+            value={value}
+            onChange={handleChange}
           >
             <FormControlLabel
               value="a"

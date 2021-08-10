@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import { Grid, makeStyles } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
 import Fab from "@material-ui/core/Fab";
@@ -7,14 +6,9 @@ import Fab from "@material-ui/core/Fab";
 import NavBarMark from "./NavBarMark";
 import { darkTheme } from "../components/react/darkTheme";
 import Comparison from "../components/react/Comparision";
+import FourPointScale from "../components/react/FourPointScale";
 
 export default function Mark() {
-  const [value, setValue] = useState("Submission A");
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
   const useStyles = makeStyles((theme) => ({
     root: {
       color: darkTheme.palette.text.primary,
@@ -34,7 +28,8 @@ export default function Mark() {
         spacing={4}
         className={classes.root}
       >
-        <Comparison handleChange={handleChange} value={value} />
+        <Comparison />
+        {/* <FourPointScale /> */}
         <Grid item>
           <Fab color="secondary" variant="extended" className={classes.button}>
             Next

@@ -1,6 +1,34 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+
+function LinearProgressWithLabel(props) {
+  return (
+    <Box display="flex" alignItems="center">
+      <Box width="100%" mr={1}>
+        <LinearProgress
+          color="secondary"
+          variant="determinate"
+          value={props.value}
+        />
+      </Box>
+      <Box minWidth={35}>
+        <Typography variant="body2">{`${Math.round(props.value)}%`}</Typography>
+      </Box>
+    </Box>
+  );
+}
+
+LinearProgressWithLabel.propTypes = {
+  /**
+   * The value of the progress indicator for the determinate and buffer variants.
+   * Value between 0 and 100.
+   */
+  value: PropTypes.number.isRequired,
+};
 
 const useStyles = makeStyles({
   root: {
@@ -8,33 +36,12 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ProgressBar() {
+export default function ProgressBar(props) {
   const classes = useStyles();
-  const [progress, setProgress] = React.useState(0);
-
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((oldProgress) => {
-        if (oldProgress === 100) {
-          return 0;
-        }
-        const diff = Math.random() * 10;
-        return Math.min(oldProgress + diff, 100);
-      });
-    }, 500);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
 
   return (
     <div className={classes.root}>
-      <LinearProgress
-        variant="determinate"
-        color="secondary"
-        value={progress}
-      />
+      <LinearProgressWithLabel value={props.progress} />
     </div>
   );
 }

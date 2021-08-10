@@ -7,6 +7,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "./carousel_styles.css";
 import { Carousel } from "react-responsive-carousel";
 
 import submission_a from "../../assets/submissions/ALxdH3dmBJ6JoauXjCle.png";
@@ -47,17 +48,25 @@ export default function Comparison() {
           </RadioGroup>
         </FormControl>
       </Grid>
-      <Grid item>
-        <Carousel showThumbs={false}>
-          <div>
-            <img src={submission_a} alt="" />
-            <p className="legend">Submission A</p>
-          </div>
-          <div>
-            <img src={submission_b} alt="" />
-            <p className="legend">Submission B</p>
-          </div>
-        </Carousel>
+      <Grid
+        container
+        item
+        direction="row"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Grid item>
+          <Carousel showThumbs={false} width="90%">
+            <div>
+              <img src={submission_a} alt="" />
+              <p className="legend">Submission A</p>
+            </div>
+            <div>
+              <img src={submission_b} alt="" />
+              <p className="legend">Submission B</p>
+            </div>
+          </Carousel>
+        </Grid>
       </Grid>{" "}
     </>
   );

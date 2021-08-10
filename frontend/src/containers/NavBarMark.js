@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavBarMark() {
+export default function NavBarMark(props) {
   const classes = useStyles();
 
   return (
@@ -28,7 +28,7 @@ export default function NavBarMark() {
           <Typography variant="h6" className={classes.title}>
             Survey
           </Typography>
-          <ProgressBar />
+          <ProgressBar progress={props.progress} />
         </Toolbar>
       </AppBar>
     </div>

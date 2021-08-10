@@ -1,19 +1,23 @@
 import React from "react";
+import { useState } from "react";
 import { Grid, makeStyles } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
 import Fab from "@material-ui/core/Fab";
 
 import NavBarMark from "./NavBarMark";
 import { darkTheme } from "../components/react/darkTheme";
+import Comparison from "../components/react/Comparision";
 
 export default function Mark() {
+  const [value, setValue] = useState("Submission A");
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
   const useStyles = makeStyles((theme) => ({
     root: {
       color: darkTheme.palette.text.primary,
-    },
-    button: {
-      // paddingLeft: "100%",
-      // paddingRight: "100%",
     },
   }));
 
@@ -26,15 +30,11 @@ export default function Mark() {
         container
         direction="column"
         alignItems="center"
-        justifyContent="center"
+        justifyContent="space-evenly"
+        spacing={4}
         className={classes.root}
       >
-        <Grid item>
-          <h1> Question 1 </h1>
-        </Grid>
-        <Grid item>
-          <h2> Question goes here </h2>
-        </Grid>
+        <Comparison handleChange={handleChange} value={value} />
         <Grid item>
           <Fab color="secondary" variant="extended" className={classes.button}>
             Next

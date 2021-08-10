@@ -14,7 +14,7 @@ export default function Home() {
     },
   }));
 
-  const classes = useStyles(darkTheme);
+  const classes = useStyles();
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -41,7 +41,7 @@ export default function Home() {
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" color="secondary" href="/mark">
             Secondary
           </Button>
         </Grid>

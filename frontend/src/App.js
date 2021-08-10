@@ -38,6 +38,9 @@ export default function App() {
         {/* <Route path = "intro/mark">
           <MarkIntro/>
         </Route> */}
+        <Route path="/mark">
+          <Mark />
+        </Route>
         <Route path="/canvas/practice">
           {uid === null ? <Redirect to="/" /> : <CanvasPractice />}
         </Route>

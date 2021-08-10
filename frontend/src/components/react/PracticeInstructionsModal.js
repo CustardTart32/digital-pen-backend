@@ -7,9 +7,9 @@ import { useState } from "react";
 
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
-import exampleBadSentence from "../../assets/slanted_cropped.png";
-import exampleBadWord from "../../assets/truncated_cropped.jpg";
-import exampleGood from "../../assets/correct_cropped.png";
+import exampleBadSentence from "../../assets/examples/slanted_cropped.png";
+import exampleBadWord from "../../assets/examples/truncated_cropped.jpg";
+import exampleGood from "../../assets/examples/correct_cropped.png";
 
 import { darkTheme } from "./darkTheme";
 import { Button } from "@material-ui/core";

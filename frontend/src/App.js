@@ -47,9 +47,6 @@ export default function App() {
         <Route path="/canvas/test">
           {uid === null ? <Redirect to="/" /> : <CanvasTimed />}
         </Route>
-        <Route path="/mark">
-          {uid === null ? <Redirect to="/" /> : <Mark />}
-        </Route>
         <Route path="/consent">
           <ConsentForm />
         </Route>

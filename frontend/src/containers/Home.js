@@ -42,14 +42,14 @@ export default function Home() {
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <Button variant="contained" color="primary">
-              Canvas Page
+              Digital Canvas
             </Button>
           </Link>
         </Grid>
         <Grid item>
           <Link to="/mark" style={{ textDecoration: "none", color: "inherit" }}>
             <Button variant="contained" color="secondary">
-              Secondary
+              Mark Submissions
             </Button>
           </Link>
         </Grid>

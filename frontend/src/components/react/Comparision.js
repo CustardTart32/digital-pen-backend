@@ -34,6 +34,7 @@ export default function Comparison() {
             name="Text"
             value={value}
             onChange={handleChange}
+            row
           >
             <FormControlLabel
               value="a"

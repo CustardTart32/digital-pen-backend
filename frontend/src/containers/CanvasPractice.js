@@ -8,7 +8,7 @@ import { useState } from "react";
 
 import NavBarPractice from "../components/react/NavBarPractice";
 import PracticeInstructionsModal from "../components/react/PracticeInstructionsModal";
-import * as p5Canvas from "../components/p5.js/p5canvas";
+import * as p5Canvas from "../components/p5.js/p5canvas_practice";
 import { darkTheme } from "../components/react/darkTheme";
 
 const useStyles = makeStyles((theme) => ({

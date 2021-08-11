@@ -36,7 +36,11 @@ export default function CanvasPractice(props) {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <NavBarPractice setTutOpen={setTutOpen} uid={props.uid} />
+      <NavBarPractice
+        setTutOpen={setTutOpen}
+        uid={props.uid}
+        handleReset={p5Canvas.handleReset}
+      />
       <PracticeInstructionsModal
         open={tutOpen}
         handleClose={() => {

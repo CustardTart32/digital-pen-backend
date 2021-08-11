@@ -28,7 +28,7 @@ export default function NavBarTimed(props) {
           Timed Assessment
         </Typography>
         <Typography> {props.user} </Typography>
-        <Button color="inherit" href="/canvas/test">
+        <Button color="inherit" onClick={props.handleReset}>
           Reset
         </Button>
         <Button

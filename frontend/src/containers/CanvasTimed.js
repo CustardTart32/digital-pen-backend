@@ -84,9 +84,8 @@ export default function CanvasTimed(props) {
         }}
       />
       <NavBarTimed
-        handleSubmit={() => {
-          handleSubmit();
-        }}
+        handleSubmit={handleSubmit}
+        handleReset={p5Canvas.handleReset}
         user={props.uid}
       />
       <Grid

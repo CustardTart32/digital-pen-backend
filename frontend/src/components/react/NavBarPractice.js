@@ -3,9 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-// import Link from "@material-ui/core/Link";
 import { Link } from "react-router-dom";
-
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -40,14 +38,11 @@ export default function NavBarPractice(props) {
         >
           Instructions
         </Button>
+        <Button color="inherit" onClick={props.handleReset}>
+          Reset
+        </Button>
         <Link
-          to={"/canvas/practice"}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          <Button color="inherit">Reset</Button>
-        </Link>
-        <Link
-          to={"/canvas/test"}
+          to="/canvas/test"
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <Button color="inherit">Continue</Button>

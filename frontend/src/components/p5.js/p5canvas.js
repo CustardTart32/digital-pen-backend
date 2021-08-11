@@ -27,7 +27,6 @@ var prevPenY = 0;
 var prevBrushSize = 1;
 var amt, x, y, s, d;
 var pressure = -2;
-
 var lineWidth = 70;
 
 // Arrays to store digital ink
@@ -35,6 +34,9 @@ export var xVals = [];
 export var yVals = [];
 export var tVals = [];
 export var pVals = [];
+
+// Variable to clear the canvas
+export var resetNeeded = false;
 
 // References to p5 canvasses
 export var drawCanvas, uiCanvas;
@@ -107,6 +109,17 @@ export var draw_drawing = (p) => {
   // Start Pressure.js if it hasn't started already
   if (isPressureInit === false) {
     initPressure();
+  }
+
+  // If reset is needed
+  if (resetNeeded === true) {
+    drawCanvas.background("#2f4f4f");
+    draw_lines(p);
+    xVals = [];
+    yVals = [];
+    tVals = [];
+    pVals = [];
+    resetNeeded = false;
   }
 
   let penX;
@@ -233,4 +246,8 @@ export var handleSubmit = async (user, setSubmissionStatus, setError) => {
   yVals = [];
   tVals = [];
   pVals = [];
+};
+
+export var handleReset = () => {
+  resetNeeded = true;
 };

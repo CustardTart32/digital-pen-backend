@@ -30,13 +30,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CanvasPractice() {
+export default function CanvasPractice(props) {
   const classes = useStyles();
   const [tutOpen, setTutOpen] = useState(true);
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <NavBarPractice setTutOpen={setTutOpen} />
+      <NavBarPractice setTutOpen={setTutOpen} uid={props.uid} />
       <PracticeInstructionsModal
         open={tutOpen}
         handleClose={() => {

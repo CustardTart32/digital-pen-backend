@@ -8,6 +8,7 @@ import NavBarMark from "./NavBarMark";
 import { darkTheme } from "../components/react/darkTheme";
 import Comparison from "../components/react/Comparision";
 import FourPointScale from "../components/react/FourPointScale";
+import { Link } from "react-router-dom";
 
 export default function Mark() {
   const [stage, setStage] = useState(1);
@@ -33,14 +34,15 @@ export default function Mark() {
   const renderButton = () => {
     if (stage === 10) {
       return (
-        <Fab
-          // color="secondary"
-          variant="extended"
-          href="/"
-          className={classes.button}
-        >
-          Finish and Submit
-        </Fab>
+        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+          <Fab
+            // color="secondary"
+            variant="extended"
+            className={classes.button}
+          >
+            Finish and Submit
+          </Fab>
+        </Link>
       );
     } else {
       return (

@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { darkTheme } from "../components/react/darkTheme";
+import { Link } from "react-router-dom";
 
 export default function CanvasIntro() {
   const useStyles = makeStyles((theme) => ({
@@ -52,9 +53,14 @@ export default function CanvasIntro() {
         </ul>
       </Grid>
       <Grid item>
-        <Button variant="contained" color="primary" href="/canvas/practice">
-          Next
-        </Button>
+        <Link
+          to="/canvas/practice"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <Button variant="contained" color="primary">
+            Next
+          </Button>
+        </Link>
       </Grid>
     </Grid>
   );

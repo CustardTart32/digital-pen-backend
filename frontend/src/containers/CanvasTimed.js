@@ -15,8 +15,6 @@ import { darkTheme } from "../components/react/darkTheme";
 import Timer from "../components/react/Timer";
 import TimedInstructionsModal from "../components/react/TimedInstructionsModal";
 
-import fire from "../config/firebase";
-
 const useStyles = makeStyles((theme) => ({
   fab: {
     margin: theme.spacing(2),
@@ -36,29 +34,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CanvasTimed() {
+export default function CanvasTimed(props) {
   const [submissionStatus, setSubmissionStatus] = useState("none");
   const [error, setError] = useState("");
   const [time, setTime] = useState(0);
-  const [uid, setUid] = useState(null);
   const [tutOpen, setTutOpen] = useState(true);
 
   const classes = useStyles();
 
   const handleSubmit = useCallback(() => {
-    p5Canvas.handleSubmit(uid, setSubmissionStatus, setError);
-  }, [uid]);
-
-  fire.auth().onAuthStateChanged((user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      setUid(user.uid);
-    } else {
-      // User is signed out
-      setUid(null);
-    }
-  });
+    p5Canvas.handleSubmit(props.uid, setSubmissionStatus, setError);
+  }, [props.uid]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -101,7 +87,7 @@ export default function CanvasTimed() {
         handleSubmit={() => {
           handleSubmit();
         }}
-        user={uid}
+        user={props.uid}
       />
       <Grid
         container

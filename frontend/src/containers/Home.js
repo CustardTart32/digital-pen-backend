@@ -4,6 +4,7 @@ import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { darkTheme } from "../components/react/darkTheme";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const useStyles = makeStyles((theme) => ({
@@ -36,14 +37,21 @@ export default function Home() {
           </Typography>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" href="/consent">
-            Canvas Page
-          </Button>
+          <Link
+            to="/consent"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <Button variant="contained" color="primary">
+              Canvas Page
+            </Button>
+          </Link>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="secondary" href="/mark">
-            Secondary
-          </Button>
+          <Link to="/mark" style={{ textDecoration: "none", color: "inherit" }}>
+            <Button variant="contained" color="secondary">
+              Secondary
+            </Button>
+          </Link>
         </Grid>
       </Grid>
     </ThemeProvider>

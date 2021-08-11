@@ -31,7 +31,7 @@ for file in glob.glob("../data/datasets/*1*.inkml"):
         "line_ids": lines
     }
 
-    batch.set(file_ref, data, merge=True)
+    batch.set(file_ref, data)
 
     # Add individual text lines to subcollections
     for i in range(0, len(lines)):
@@ -52,23 +52,23 @@ for file in glob.glob("../data/datasets/*1*.inkml"):
         batch.set(line_ref, words)
 
     # Add digital ink data with references as keys
-    # for ref in ref_dict.keys():
-    #     x, y, t, p = construct_time_series(ref_dict[ref].strip())
+    for ref in ref_dict.keys():
+        x, y, t, p = construct_time_series(ref_dict[ref].strip())
 
-    #     t_filled = get_time_gaps(t)
-    #     x_filled = list(np.interp(t_filled, t, x))
-    #     y_filled = list(np.interp(t_filled, t, y))
-    #     p_filled = list(np.interp(t_filled, t, p))
+        t_filled = get_time_gaps(t)
+        x_filled = list(np.interp(t_filled, t, x))
+        y_filled = list(np.interp(t_filled, t, y))
+        p_filled = list(np.interp(t_filled, t, p))
 
-    #     ink = {
-    #         'x': x_filled,
-    #         'y': y_filled,
-    #         't': t_filled,
-    #         'p': p_filled,
-    #     }
+        ink = {
+            'x': x_filled,
+            'y': y_filled,
+            't': t_filled,
+            'p': p_filled,
+        }
 
-    #     ink_ref = file_ref.collection("ink").document(ref)
+        ink_ref = file_ref.collection("ink").document(ref)
 
-    #     batch.set(ink_ref, ink)
+        batch.set(ink_ref, ink)
 
     batch.commit()

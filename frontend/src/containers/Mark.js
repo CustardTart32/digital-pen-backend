@@ -4,7 +4,7 @@ import { Grid, makeStyles } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
 import Fab from "@material-ui/core/Fab";
 
-import NavBarMark from "./NavBarMark";
+import NavBarMark from "../components/react/NavBarMark";
 import { darkTheme } from "../components/react/darkTheme";
 import Comparison from "../components/react/Comparision";
 import FourPointScale from "../components/react/FourPointScale";
@@ -17,6 +17,7 @@ export default function Mark() {
     root: {
       color: darkTheme.palette.text.primary,
     },
+    toolbar: theme.mixins.toolbar,
   }));
 
   const handleNext = () => {
@@ -71,6 +72,7 @@ export default function Mark() {
         spacing={4}
         className={classes.root}
       >
+        <div className={classes.toolbar} />
         {renderSurveyQuestion()}
         <Grid item>{renderButton()}</Grid>
       </Grid>

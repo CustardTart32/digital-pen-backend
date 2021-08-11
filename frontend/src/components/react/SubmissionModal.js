@@ -80,7 +80,11 @@ export default function SubmissionModal(props) {
           justifyContent="space-evenly"
           alignItems="center"
         >
-          <Button variant="contained" color="primary" href="/canvas/test">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={props.handleErrorReset}
+          >
             Retry
           </Button>
           <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>

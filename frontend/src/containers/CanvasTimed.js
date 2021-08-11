@@ -10,7 +10,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 
 import NavBarTimed from "../components/react/NavBarTimed";
 import SubmissionModal from "../components/react/SubmissionModal";
-import * as p5Canvas from "../components/p5.js/p5canvas";
+import * as p5Canvas from "../components/p5.js/p5canvas_test";
 import { darkTheme } from "../components/react/darkTheme";
 import Timer from "../components/react/Timer";
 import TimedInstructionsModal from "../components/react/TimedInstructionsModal";
@@ -46,6 +46,17 @@ export default function CanvasTimed(props) {
     p5Canvas.handleSubmit(props.uid, setSubmissionStatus, setError);
   }, [props.uid]);
 
+  const handleReset = () => {
+    setTime(0);
+    p5Canvas.handleReset();
+  };
+
+  const handleErrorReset = () => {
+    setError("");
+    setSubmissionStatus("none");
+    handleReset();
+  };
+
   useEffect(() => {
     const timer = setInterval(() => {
       setTime((time) => (time >= 100 ? 100 : time + 1));
@@ -75,6 +86,7 @@ export default function CanvasTimed(props) {
         submissionStatus={submissionStatus}
         error={error}
         setSubmissionStatus={setSubmissionStatus}
+        handleErrorReset={handleErrorReset}
       />
       <TimedInstructionsModal
         open={tutOpen}
@@ -85,7 +97,7 @@ export default function CanvasTimed(props) {
       />
       <NavBarTimed
         handleSubmit={handleSubmit}
-        handleReset={p5Canvas.handleReset}
+        handleReset={handleReset}
         user={props.uid}
       />
       <Grid

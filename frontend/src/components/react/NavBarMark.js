@@ -4,7 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 
-import ProgressBar from "../components/react/ProgressBar";
+import ProgressBar from "./ProgressBar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +23,7 @@ export default function NavBarMark(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Survey

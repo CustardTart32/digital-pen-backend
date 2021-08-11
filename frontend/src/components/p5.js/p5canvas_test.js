@@ -1,4 +1,9 @@
 import { OneEuroFilter } from "./oneEuroFilter";
+import fire from "../../config/firebase";
+import firebase from "firebase/app";
+var db = fire.firestore();
+var storage = fire.storage();
+var storageRef = storage.ref();
 
 var Pressure = require("pressure");
 
@@ -208,6 +213,39 @@ function disableScroll() {
 function preventDefault(e) {
   e.preventDefault();
 }
+
+export var handleSubmit = async (user, setSubmissionStatus, setError) => {
+  setSubmissionStatus("submitting");
+
+  // Select canvas attribute from DOM and generate a BASE64 img representation
+  var canvas = document.getElementById("drawingCanvas");
+  var img = canvas.toDataURL("image/png");
+  let db_ref = db.collection("ink").doc();
+  var imgRef = storageRef.child("inkImages/" + db_ref.id + ".png");
+
+  try {
+    await db_ref.set({ x: xVals, y: yVals, t: tVals, p: pVals });
+    console.log("Uploaded digital ink");
+    await imgRef.putString(img, "data_url");
+    console.log("Uploaded a data_url string!");
+
+    // Link db_ref to user
+    let user_ref = db.collection("user_docs").doc(user);
+    await user_ref.update({
+      docs: firebase.firestore.FieldValue.arrayUnion(db_ref.id),
+    });
+    console.log("Updated user references");
+    setSubmissionStatus("submitted");
+    setError("");
+  } catch (err) {
+    setSubmissionStatus("submitted");
+    setError("Error uploading results");
+    console.log(err);
+  }
+
+  // setSubmissionStatus("submitted");
+  // setError("Error uploading results");
+};
 
 export var handleReset = () => {
   resetNeeded = true;

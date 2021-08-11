@@ -51,7 +51,7 @@ export default function App() {
           {uid === null ? <Redirect to="/" /> : <Mark />}
         </Route>
         <Route path="/consent">
-          {uid === null ? <Redirect to="/" /> : <ConsentForm />}
+          <ConsentForm />
         </Route>
         <Route path="/" exact>
           <Home />

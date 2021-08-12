@@ -69,7 +69,7 @@ export default function Mark() {
         direction="column"
         alignItems="center"
         justifyContent="space-evenly"
-        spacing={4}
+        spacing={2}
         className={classes.root}
       >
         <div className={classes.toolbar} />

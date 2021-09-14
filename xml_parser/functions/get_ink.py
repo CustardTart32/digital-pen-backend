@@ -16,7 +16,7 @@ firebase_admin.initialize_app(cred, {
 })
 
 db = firestore.client()
-doc_id = "qYZR7wVjn67RntEL9rpN"
+doc_id = "ii0oeGOKNjVN4m2CCXgn"
 doc_ref = db.collection("ink").document(doc_id)
 
 doc = doc_ref.get()

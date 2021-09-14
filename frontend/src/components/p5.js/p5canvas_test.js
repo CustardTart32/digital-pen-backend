@@ -167,8 +167,8 @@ export var draw_drawing = (p) => {
     p.ellipse(penX, penY, brushSize);
 
     // Collect pen postion
-    xVals.push(-penX);
-    yVals.push(-penY);
+    xVals.push(penX);
+    yVals.push(penY);
     tVals.push(p.millis());
     pVals.push(pressure);
 

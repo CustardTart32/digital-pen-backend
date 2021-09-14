@@ -125,6 +125,8 @@ export var draw_drawing = (p) => {
     penX = xFilter.filter(p.mouseX, p.millis());
     penY = yFilter.filter(p.mouseY, p.millis());
 
+    console.log(penX, penY);
+
     // What to do on the first frame of the stroke
     if (isDrawingJustStarted) {
       prevPenX = penX;
@@ -162,8 +164,8 @@ export var draw_drawing = (p) => {
     p.ellipse(penX, penY, brushSize);
 
     // Collect pen postion
-    xVals.push(-penX);
-    yVals.push(-penY);
+    xVals.push(penX);
+    yVals.push(penY);
     tVals.push(p.millis());
     pVals.push(pressure);
 

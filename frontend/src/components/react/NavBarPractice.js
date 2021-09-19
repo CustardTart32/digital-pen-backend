@@ -5,6 +5,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,15 +18,21 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     color: theme.palette.text.primary,
   },
+  homeButton: {
+    textDecoration: "none",
+    color: "inherit",
+  },
 }));
 
 export default function NavBarPractice(props) {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
+
   return (
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+          <Link to="/" className={classes.homeButton}>
             Practice Assessment
           </Link>
         </Typography>

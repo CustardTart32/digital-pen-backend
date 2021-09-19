@@ -1,24 +1,25 @@
 import React from "react";
 import { useState } from "react";
-import { Grid, makeStyles } from "@material-ui/core";
-import { ThemeProvider } from "@material-ui/styles";
+import { Grid, makeStyles, useTheme } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
-
 import NavBarMark from "../components/react/NavBarMark";
-import { darkTheme } from "../components/react/darkTheme";
 import Comparison from "../components/react/Comparision";
 import FourPointScale from "../components/react/FourPointScale";
 import { Link } from "react-router-dom";
 
-export default function Mark() {
-  const [stage, setStage] = useState(1);
+const useStyles = makeStyles((theme) => ({
+  root: {
+    color: theme.palette.text.primary,
+    width: "100%",
+  },
+  toolbar: theme.mixins.toolbar,
+}));
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      color: darkTheme.palette.text.primary,
-    },
-    toolbar: theme.mixins.toolbar,
-  }));
+export default function Mark() {
+  const theme = useTheme();
+  const classes = useStyles(theme);
+
+  const [stage, setStage] = useState(1);
 
   const handleNext = () => {
     setStage(stage + 1);
@@ -59,10 +60,8 @@ export default function Mark() {
     }
   };
 
-  const classes = useStyles();
-
   return (
-    <ThemeProvider theme={darkTheme}>
+    <>
       <NavBarMark progress={stage * 10} />
       <Grid
         container
@@ -76,6 +75,6 @@ export default function Mark() {
         {renderSurveyQuestion()}
         <Grid item>{renderButton()}</Grid>
       </Grid>
-    </ThemeProvider>
+    </>
   );
 }

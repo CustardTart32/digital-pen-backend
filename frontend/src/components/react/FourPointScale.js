@@ -32,7 +32,7 @@ export default function FourPointScale() {
   };
 
   return (
-    <React.Fragment>
+    <>
       <FourPointModal
         open={open}
         handleOpen={handleOpen}
@@ -95,6 +95,6 @@ export default function FourPointScale() {
       >
         <img src={submission_a} alt="" width="95%" />
       </Grid>
-    </React.Fragment>
+    </>
   );
 }

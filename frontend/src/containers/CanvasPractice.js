@@ -2,14 +2,12 @@ import React from "react";
 import Sketch from "react-p5";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import { ThemeProvider } from "@material-ui/styles";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { useState } from "react";
 
 import NavBarPractice from "../components/react/NavBarPractice";
 import PracticeInstructionsModal from "../components/react/PracticeInstructionsModal";
 import * as p5Canvas from "../components/p5.js/p5canvas_practice";
-import { darkTheme } from "../components/react/darkTheme";
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -17,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
   // TODO: Hardcoded in
   container: {
-    color: darkTheme.palette.text.primary,
+    color: theme.palette.text.primary,
     height: window.innerHeight / 3 - 64,
   },
   startButton: {
@@ -31,11 +29,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CanvasPractice(props) {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
   const [tutOpen, setTutOpen] = useState(true);
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <>
       <NavBarPractice
         setTutOpen={setTutOpen}
         uid={props.uid}
@@ -74,6 +73,6 @@ export default function CanvasPractice(props) {
           className="p5_instance_02"
         />
       </div>
-    </ThemeProvider>
+    </>
   );
 }

@@ -2,16 +2,14 @@ import React, { useCallback } from "react";
 import Sketch from "react-p5";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import { ThemeProvider } from "@material-ui/styles";
 import { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 
 import NavBarTimed from "../components/react/NavBarTimed";
 import SubmissionModal from "../components/react/SubmissionModal";
 import * as p5Canvas from "../components/p5.js/p5canvas_test";
-import { darkTheme } from "../components/react/darkTheme";
 import Timer from "../components/react/Timer";
 import TimedInstructionsModal from "../components/react/TimedInstructionsModal";
 
@@ -21,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   // Hardcoded in
   container: {
-    color: darkTheme.palette.text.primary,
+    color: theme.palette.text.primary,
     height: window.innerHeight / 3 - 64,
   },
   startButton: {
@@ -39,8 +37,6 @@ export default function CanvasTimed(props) {
   const [error, setError] = useState("");
   const [time, setTime] = useState(0);
   const [tutOpen, setTutOpen] = useState(true);
-
-  const classes = useStyles();
 
   const handleSubmit = useCallback(() => {
     p5Canvas.handleSubmit(props.uid, setSubmissionStatus, setError);
@@ -74,8 +70,11 @@ export default function CanvasTimed(props) {
     }
   }, [time, tutOpen, submissionStatus, handleSubmit]);
 
+  const theme = useTheme();
+  const classes = useStyles(theme);
+
   return (
-    <ThemeProvider theme={darkTheme}>
+    <>
       <Backdrop
         className={classes.backdrop}
         open={submissionStatus === "submitting"}
@@ -128,6 +127,6 @@ export default function CanvasTimed(props) {
           className="p5_instance_02"
         />
       </div>
-    </ThemeProvider>
+    </>
   );
 }

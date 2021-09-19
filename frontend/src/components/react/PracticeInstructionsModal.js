@@ -10,9 +10,8 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import exampleBadSentence from "../../assets/examples/slanted_cropped.png";
 import exampleBadWord from "../../assets/examples/truncated_cropped.jpg";
 import exampleGood from "../../assets/examples/correct_cropped.png";
-
-import { darkTheme } from "./darkTheme";
 import { Button } from "@material-ui/core";
+import { useTheme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -21,24 +20,26 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   paper: {
-    backgroundColor: darkTheme.palette.background.paper,
-    color: darkTheme.palette.text.primary,
-    boxShadow: darkTheme.shadows[5],
-    padding: darkTheme.spacing(2, 4, 3),
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.primary,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
     maxWidth: "70%",
   },
   good: {
-    color: darkTheme.palette.success.main,
+    color: theme.palette.success.main,
     marginRight: "2%",
   },
   bad: {
-    color: darkTheme.palette.error.main,
+    color: theme.palette.error.main,
     marginRight: "2%",
   },
 }));
 
 export default function PracticeInstructionsModal(props) {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
+
   const [step, setStep] = useState(0);
 
   const renderInstructions = () => {

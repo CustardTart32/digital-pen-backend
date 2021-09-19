@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { darkTheme } from "../components/react/darkTheme";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 
 export default function CanvasIntro() {
@@ -9,14 +8,15 @@ export default function CanvasIntro() {
     root: {
       flexGrow: 1,
       height: "100vh",
-      color: darkTheme.palette.text.primary,
+      color: theme.palette.text.primary,
     },
     dotPoint: {
       width: "100%",
     },
   }));
 
-  const classes = useStyles(darkTheme);
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   return (
     <Grid

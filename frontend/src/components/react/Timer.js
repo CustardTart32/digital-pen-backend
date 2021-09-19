@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@material-ui/core/Box";
+import { useTheme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   startButton: {
@@ -13,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Timer(props) {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   return (
     <Grid

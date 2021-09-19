@@ -14,7 +14,7 @@ import { Carousel } from "react-responsive-carousel";
 // import submission_b from "../../assets/submissions/cw87bnlvENSOp6pzaVzr.png";
 
 import submission_a from "../../assets/dataset_screenshots/001b.png";
-import submission_b from "../../assets/dataset_screenshots/001d.png";
+import submission_b from "../../assets/dataset_screenshots/001e.png";
 
 export default function Comparison() {
   const [value, setValue] = useState("Submission A");
@@ -60,7 +60,13 @@ export default function Comparison() {
         justifyContent="center"
       >
         <Grid item>
-          <Carousel showThumbs={false} width="90%">
+          <Carousel
+            width="90%"
+            showThumbs={false}
+            autoPlay={true}
+            interval={10000}
+            infiniteLoop={true}
+          >
             <div>
               <img src={submission_a} alt="" />
               <p className="legend">Submission A</p>

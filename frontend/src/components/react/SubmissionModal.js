@@ -1,11 +1,9 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { Link } from "react-router-dom";
-
-import { darkTheme } from "./darkTheme";
 import { Button, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -15,15 +13,16 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   paper: {
-    backgroundColor: darkTheme.palette.background.paper,
-    color: darkTheme.palette.text.primary,
-    boxShadow: darkTheme.shadows[5],
-    padding: darkTheme.spacing(2, 4, 3),
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.primary,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
   },
 }));
 
 export default function SubmissionModal(props) {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   function Success() {
     return (

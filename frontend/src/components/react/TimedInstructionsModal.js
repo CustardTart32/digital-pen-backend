@@ -1,9 +1,8 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Grid from "@material-ui/core/Grid";
 import Fade from "@material-ui/core/Fade";
-import { darkTheme } from "./darkTheme";
 import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -13,24 +12,25 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   paper: {
-    backgroundColor: darkTheme.palette.background.paper,
-    color: darkTheme.palette.text.primary,
-    boxShadow: darkTheme.shadows[5],
-    padding: darkTheme.spacing(2, 4, 3),
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.primary,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
     maxWidth: "70%",
   },
   good: {
-    color: darkTheme.palette.success.main,
+    color: theme.palette.success.main,
     marginRight: "2%",
   },
   bad: {
-    color: darkTheme.palette.error.main,
+    color: theme.palette.error.main,
     marginRight: "2%",
   },
 }));
 
 export default function TimedInstructionsModal(props) {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   const renderInstructions = () => {
     return (

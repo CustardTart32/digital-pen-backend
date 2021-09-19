@@ -1,12 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Button, Grid, TextField, Typography } from "@material-ui/core";
-import {
-  createTheme,
-  makeStyles,
-  ThemeProvider,
-} from "@material-ui/core/styles";
-import { darkTheme } from "../components/react/darkTheme";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Link from "@material-ui/core/Link";
@@ -16,17 +11,11 @@ import { useHistory } from "react-router-dom";
 
 import fire from "../config/firebase";
 
-const test = createTheme({
-  palette: {
-    type: "dark",
-  },
-});
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     height: "100vh",
-    color: darkTheme.palette.text.primary,
+    color: theme.palette.text.primary,
   },
   title: {
     marginLeft: "2%",
@@ -45,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ConsentForm() {
-  const classes = useStyles();
   const [checked, setChecked] = useState(false);
   const [name, setName] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -85,8 +73,11 @@ export default function ConsentForm() {
     }
   };
 
+  const theme = useTheme();
+  const classes = useStyles(theme);
+
   return (
-    <ThemeProvider theme={test}>
+    <>
       <Backdrop className={classes.backdrop} open={progress === "submitting"}>
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -212,6 +203,6 @@ export default function ConsentForm() {
           </form>
         </Grid>
       </Grid>
-    </ThemeProvider>
+    </>
   );
 }

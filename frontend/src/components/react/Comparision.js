@@ -10,8 +10,11 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import "../../styles/carousel_styles.css";
 import { Carousel } from "react-responsive-carousel";
 
-import submission_a from "../../assets/submissions/ALxdH3dmBJ6JoauXjCle.png";
-import submission_b from "../../assets/submissions/cw87bnlvENSOp6pzaVzr.png";
+// import submission_a from "../../assets/submissions/ALxdH3dmBJ6JoauXjCle.png";
+// import submission_b from "../../assets/submissions/cw87bnlvENSOp6pzaVzr.png";
+
+import submission_a from "../../assets/dataset_screenshots/001b.png";
+import submission_b from "../../assets/dataset_screenshots/001d.png";
 
 export default function Comparison() {
   const [value, setValue] = useState("Submission A");

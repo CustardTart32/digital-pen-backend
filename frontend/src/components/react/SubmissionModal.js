@@ -53,11 +53,9 @@ export default function SubmissionModal(props) {
               Start Marking
             </Button>
           </Link>
-          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-            <Button variant="contained" color="secondary">
-              Back to Home
-            </Button>
-          </Link>
+          <Button variant="contained" color="secondary" href="/">
+            Back to Home
+          </Button>
         </Grid>
       </Grid>
     );
@@ -86,11 +84,9 @@ export default function SubmissionModal(props) {
           >
             Retry
           </Button>
-          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-            <Button variant="contained" color="secondary">
-              Back to Home
-            </Button>
-          </Link>
+          <Button variant="contained" color="secondary" href="/">
+            Back to Home
+          </Button>
         </Grid>
       </Grid>
     );

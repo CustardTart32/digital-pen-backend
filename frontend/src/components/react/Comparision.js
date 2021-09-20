@@ -10,74 +10,86 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import "../../styles/carousel_styles.css";
 import { Carousel } from "react-responsive-carousel";
 
-// import submission_a from "../../assets/submissions/ALxdH3dmBJ6JoauXjCle.png";
-// import submission_b from "../../assets/submissions/cw87bnlvENSOp6pzaVzr.png";
+export default function Comparison(props) {
+	const [value, setValue] = useState("");
 
-import submission_a from "../../assets/dataset_screenshots/001b.png";
-import submission_b from "../../assets/dataset_screenshots/001e.png";
+	const handleChange = (event) => {
+		setValue(event.target.value);
+	};
 
-export default function Comparison() {
-  const [value, setValue] = useState("Submission A");
+	// Order: 0 <- first | 1 <- second
+	const getImage = (order) => {
+		if (props.ids.length === 0) {
+			return <div></div>;
+		} else {
+			return (
+				<div>
+					<img
+						src={
+							require("../../assets/dataset_screenshots/" +
+								props.ids[props.stage * 2 - 2 + order] +
+								".png").default
+						}
+						alt=""
+					/>
+					<p className="legend">
+						{order === 0 ? "Submission A" : "Submission B"}
+					</p>
+				</div>
+			);
+		}
+	};
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
-  return (
-    <>
-      <Grid item>
-        <Typography variant="h6">
-          Which of these pieces of handwriting is more legible in your opinion?
-        </Typography>
-      </Grid>
-      <Grid item>
-        <FormControl component="fieldset">
-          <RadioGroup
-            aria-label="text"
-            name="Text"
-            value={value}
-            onChange={handleChange}
-            row
-          >
-            <FormControlLabel
-              value="a"
-              control={<Radio />}
-              label="Submission A"
-            />
-            <FormControlLabel
-              value="b"
-              control={<Radio />}
-              label="Submission B"
-            />
-          </RadioGroup>
-        </FormControl>
-      </Grid>
-      <Grid
-        container
-        item
-        direction="row"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Grid item>
-          <Carousel
-            width="90%"
-            showThumbs={false}
-            autoPlay={true}
-            interval={10000}
-            infiniteLoop={true}
-          >
-            <div>
-              <img src={submission_a} alt="" />
-              <p className="legend">Submission A</p>
-            </div>
-            <div>
-              <img src={submission_b} alt="" />
-              <p className="legend">Submission B</p>
-            </div>
-          </Carousel>
-        </Grid>
-      </Grid>{" "}
-    </>
-  );
+	return (
+		<>
+			<Grid item>
+				<Typography variant="h6">
+					Which of these pieces of handwriting is more legible in your
+					opinion?
+				</Typography>
+			</Grid>
+			<Grid item>
+				<FormControl component="fieldset">
+					<RadioGroup
+						aria-label="text"
+						name="Text"
+						value={value}
+						onChange={handleChange}
+						row
+					>
+						<FormControlLabel
+							value="a"
+							control={<Radio />}
+							label="Submission A"
+						/>
+						<FormControlLabel
+							value="b"
+							control={<Radio />}
+							label="Submission B"
+						/>
+					</RadioGroup>
+				</FormControl>
+			</Grid>
+			<Grid
+				container
+				item
+				direction="row"
+				alignItems="center"
+				justifyContent="center"
+			>
+				<Grid item>
+					<Carousel
+						width="90%"
+						showThumbs={false}
+						autoPlay={true}
+						interval={10000}
+						infiniteLoop={true}
+					>
+						{getImage(0)}
+						{getImage(1)}
+					</Carousel>
+				</Grid>
+			</Grid>{" "}
+		</>
+	);
 }

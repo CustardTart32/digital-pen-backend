@@ -1,5 +1,3 @@
 __pycache__/
-digital-pen-746a6-firebase-adminsdk-18pgv-f7c6bc15b5.json
-digital-pen-746a6-firebase-adminsdk-18pgv-5541130c80.json
-digital-pen-746a6-firebase-adminsdk-18pgv-be23b5aa48.json
+notebooks/digital-pen*.json 
 data/screenshots/*

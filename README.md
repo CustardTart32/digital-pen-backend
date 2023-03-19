@@ -1,6 +1,6 @@
 # digital-pen-backend
 
-Contains the Jupiter Notebooks that were used to analyse data collected from the [frontend of Digital Pen](https://github.com/CustardTart32/digital-pen-frontend) 
+Contains the Jupiter Notebooks that were used to analyse data collected from the [Frontend of Digital Pen](https://github.com/CustardTart32/digital-pen-frontend) 
 to determine the feasability of creating a digital handwriting legibility test without the need for specialised assessment. 
 
 Notable files include: 
